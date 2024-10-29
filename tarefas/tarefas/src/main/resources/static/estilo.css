@@ -1,0 +1,193 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+}
+
+.shop-container {
+   background: linear-gradient(to right, #4A90E2, #8A2BE2);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 1.5rem;
+}
+
+li {
+    padding: 0.5rem;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+}
+
+li button {
+    background-color: #ff4c4c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.3rem 0.6rem;
+    cursor: pointer;
+}
+
+li button:hover {
+    background-color: #ff3333;
+}
+
+
+.register-container {
+    background: linear-gradient(to right, #4A90E2, #8A2BE2);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.login-container {
+    background: linear-gradient(to right, #4A90E2, #8A2BE2);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.login-container .btn-cadastrar {
+    width: auto; /* O botão "Cadastrar" será menor que o botão "Entrar" */
+    padding: 0.5rem 1rem; /* Tamanho do botão */
+    margin-top: 1rem; /* Espaço entre os botões */
+    background-color: #4A90E2; /* Cor do botão "Cadastrar" */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem; /* Fonte menor para o botão "Cadastrar" */
+    text-decoration: none; /* Sem sublinhado */
+}
+
+.login-container .btn-cadastrar:hover {
+    background-color: #007BFF; /* Cor mais escura ao passar o mouse */
+}
+
+label {
+    display: block;
+    text-align: left;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+input {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+button {
+    width: 100%;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#error-msg {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+}
+
+/* Estilos Específicos para items.html */
+.items-container {
+    width: 80%;
+    max-width: 800px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    margin: 20px auto;
+}
+
+.items-container h2 {
+    color: #4f75ff;
+    margin-bottom: 20px;
+}
+
+/* Tabela de Itens */
+.items-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.items-table th,
+.items-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.items-table th {
+    background-color: #4f75ff;
+    color: white;
+    font-weight: bold;
+}
+
+.items-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.items-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Botão */
+.items-container .btn {
+    padding: 8px 16px;
+    margin-top: 20px;
+    background-color: #4CAF50; /* Verde */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.items-container .btn:hover {
+    background-color: #45a049; /* Verde mais escuro */
+}
