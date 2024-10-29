@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja Virtual</title>
+    <link rel="stylesheet" href="/estilo.css">
+</head>
+<body>
+    <div class="shop-container">
+        <h2>Loja Virtual</h2>
+        
+        <form id="itemForm" action="/shop/add" method="post">
+            <label for="name">Nome do Item:</label>
+            <input type="text" id="name" name="name" placeholder="Digite o nome do item" required>
+
+            <label for="price">Preço do Item:</label>
+            <input type="number" id="price" name="price" placeholder="Digite o preço" step="0.01" min="0" required>
+
+            <button type="submit">Adicionar Item</button>
+        </form>
+        
+        <a href="/shop/items" class="btn">Itens do Carrinho</a>
+    </div>
+</body>
+</html>

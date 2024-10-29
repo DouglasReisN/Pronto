@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Usuário</title>
+    <link rel="stylesheet" href="/estilo.css">
+    <script src="jquery-3.7.1.js"></script>
+</head>
+<body>
+    <div class="register-container">
+        <h2>Cadastro de Usuário</h2>
+        <form id="registerForm" onsubmit="return validateRegisterForm()">
+            <label for="name">Nome:</label>
+            <input type="text" id="name" name="name" placeholder="Digite seu nome">
+
+            <label for="phone">Telefone:</label>
+            <input type="tel" id="phone" name="phone" placeholder="(XX) XXXXX-XXXX">
+
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" placeholder="Digite seu e-mail">
+
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" placeholder="Crie uma senha">
+
+            <button type="submit">Cadastrar</button>
+            <p id="error-msg"></p>
+        </form>
+    </div>
+    <script src="/register.js"></script>
+</body>
+</html>
