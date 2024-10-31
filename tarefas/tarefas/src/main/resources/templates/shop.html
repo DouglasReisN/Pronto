@@ -4,23 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loja Virtual</title>
-    <link rel="stylesheet" href="/estilo.css">
+    <link rel="stylesheet" href="estilo.css">
+    <script src="jquery-3.7.1.js"></script>
 </head>
 <body>
     <div class="shop-container">
         <h2>Loja Virtual</h2>
-        
-        <form id="itemForm" action="/shop/add" method="post">
-            <label for="name">Nome do Item:</label>
-            <input type="text" id="name" name="name" placeholder="Digite o nome do item" required>
 
-            <label for="price">Preço do Item:</label>
-            <input type="number" id="price" name="price" placeholder="Digite o preço" step="0.01" min="0" required>
+        <form id="itemForm" onsubmit="return false;"> <!-- Previne o envio padrão -->
+            <label for="itemName">Nome do Item:</label>
+            <input type="text" id="itemName" name="name" placeholder="Digite o nome do item" required>
 
-            <button type="submit">Adicionar Item</button>
+            <label for="itemPrice">Preço do Item:</label>
+            <input type="number" id="itemPrice" name="price" placeholder="Digite o preço" step="0.01" min="0" required>
+
+            <button type="button" onclick="addItem()">Adicionar Item</button>
         </form>
-        
+
         <a href="/shop/items" class="btn">Itens do Carrinho</a>
     </div>
+
+    <script src="shop.js"></script>
 </body>
 </html>
