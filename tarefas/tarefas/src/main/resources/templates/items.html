@@ -1,46 +1,45 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Itens do Carrinho</title>
-    <link rel="stylesheet" href="/estilo.css">
-</head>
-<body>
-    <div class="items-container">
-        <h2>Itens do Carrinho</h2>
-        
-        <table class="items-table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome do Item</th>
-                    <th>Data</th>
-                    <th>Status</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-    <tr th:each="item, iterStat : ${items}">
-        <td th:text="${iterStat.index + 1}">1</td>
-        <td th:text="${item.name}">Nome do item</td>
-        <td th:text="${item.formattedDate}">2024-10-28</td>
-        <td th:text="${item.status}">Disponível</td>
-        <td>
-            <form action="/items/buy" method="post" style="display:inline;">
-                <input type="hidden" name="index" th:value="${iterStat.index}" />
-                <button type="submit">Comprar</button>
-            </form>
-            <form action="/items/remove" method="post" style="display:inline;">
-                <input type="hidden" name="index" th:value="${iterStat.index}" />
-                <button type="submit">Remover</button>
-            </form>
-        </td>
-    </tr>
-</tbody>
-        </table>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Itens do Carrinho</title>
+        <link rel="stylesheet" href="estilo.css">
+        <script src="jquery-3.7.1.js"></script>
+    </head>
+    <body>
+        <div class="items-container">
+            <h2>Itens do Carrinho</h2>
 
-        <a href="/shop" class="btn">Voltar para Loja</a>
-    </div>
-</body>
+            <table class="items-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome do Item</th>
+                        <th>Data</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="item, iterStat : ${items}">
+                        <td th:text="${iterStat.index + 1}">1</td>
+                        <td th:text="${item.name}">Nome do item</td>
+                        <td th:text="${item.formattedDate}">2024-10-28</td>
+                        <td th:text="${item.status}">Disponível</td>
+                        <td>
+                            <form action="/api/items/remove/${item.id}" method="post" style="display:inline;">
+                                <button type="submit">Remover</button>
+                            </form>
+                            <form action="/api/items/markAsSold/${item.id}" method="post" style="display:inline;">
+                                <button type="submit">Comprar</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <a href="/shop" class="btn">Voltar para Loja</a>
+        </div>
+    </body>
 </html>
