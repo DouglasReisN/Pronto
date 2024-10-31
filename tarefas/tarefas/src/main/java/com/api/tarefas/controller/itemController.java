@@ -1,55 +1,46 @@
 package com.api.tarefas.controller;
 
-import com.api.tarefas.model.item;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import com.api.tarefas.model.Item;
+import com.api.tarefas.service.ItemService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@Controller
-@RequestMapping("/shop")
-public class itemController {
-    private List<item> items = new ArrayList<>();
+@RestController
+@RequestMapping("/api/items")
+public class ItemController {
 
-    // Exibe o formulário para adicionar itens
-    @GetMapping
-    public String showShopPage(Model model) {
-        model.addAttribute("items", items);
-        return "shop";
-    }
+    @Autowired
+    private ItemService itemService;
 
-    // Adiciona um novo item
+    // Endpoint para adicionar um novo item
     @PostMapping("/add")
-    public String addItem(@RequestParam("name") String name, 
-                          @RequestParam("price") double price) {
-        items.add(new item(name, price));
-        return "redirect:/shop";
+    public ResponseEntity<Item> addItem(@RequestBody Item item) {
+        Item savedItem = itemService.addItem(item);
+        return ResponseEntity.ok(savedItem);
     }
 
-    // Exibe a página com a lista de itens
-    @GetMapping("/items")
-    public String showItemsPage(Model model) {
-        model.addAttribute("items", items);
-        return "items";
+    // Endpoint para remover um item pelo ID
+    @PostMapping("/remove/{id}")
+    public ResponseEntity<Void> removeItem(@PathVariable Long id) {
+        itemService.removeItem(id);
+        return ResponseEntity.noContent().build();
     }
 
-    // Compra um item
-    @PostMapping("/items/buy")
-    public String buyItem(@RequestParam("index") int index) {
-        if (index >= 0 && index < items.size()) {
-            items.get(index).setStatus("Vendido");
-        }
-        return "redirect:/shop/items";
+    // Endpoint para marcar um item como vendido
+    @PutMapping("/markAsSold/{id}")
+    public ResponseEntity<Item> markAsSold(@PathVariable Long id) {
+        return itemService.markItemAsSold(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    // Remove um item
-    @PostMapping("/items/remove")
-    public String removeItem(@RequestParam("index") int index) {
-        if (index >= 0 && index < items.size()) {
-            items.remove(index);
-        }
-        return "redirect:/shop/items";
+    // Endpoint para listar todos os itens
+    @GetMapping("/all")
+    public ResponseEntity<List<Item>> getAllItems() {
+        List<Item> items = itemService.getAllItems();
+        return ResponseEntity.ok(items);
     }
 }
