@@ -1,3 +1,39 @@
+$(document).ready(function () {
+    $('#registerForm').on('submit', function (event) {
+        event.preventDefault(); // Impede o envio padrão do formulário
+
+        // Validar o formulário
+        if (!validateRegisterForm()) {
+            return; // Se a validação falhar, não prosseguir
+        }
+
+        const name = $('#name').val().trim();
+        const phone = $('#phone').val().trim();
+        const email = $('#email').val().trim();
+        const password = $('#password').val().trim();
+
+        // Envio dos dados para o backend usando AJAX
+        $.ajax({
+            url: "/api/register", // O endpoint para registro (ajuste conforme necessário)
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                name: name,
+                phone: phone,
+                email: email,
+                password: password
+            }),
+            success: function (response) {
+                alert("Registro realizado com sucesso!");
+                window.location.href = "/login"; // Redirecionar para a página de login após o registro
+            },
+            error: function (xhr) {
+                $('#error-msg').text("Erro ao registrar: " + xhr.responseText);
+            }
+        });
+    });
+});
+
 function validateRegisterForm() {
     const name = document.getElementById("name").value.trim();
     const phone = document.getElementById("phone").value.trim();
