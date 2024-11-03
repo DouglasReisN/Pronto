@@ -1,45 +1,99 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Itens do Carrinho</title>
-        <link rel="stylesheet" href="estilo.css">
-        <script src="jquery-3.7.1.js"></script>
-    </head>
-    <body>
-        <div class="items-container">
-            <h2>Itens do Carrinho</h2>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Itens do Carrinho</title>
+    <link rel="stylesheet" href="estilo.css">
+    <script src="jquery-3.7.1.js"></script>
+    <script src="items.js"></script> <!-- Certifique-se de incluir seu arquivo JavaScript -->
+</head>
+<body>
+    <div class="items-container">
+        <h2>Itens do Carrinho</h2>
 
-            <table class="items-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nome do Item</th>
-                        <th>Data</th>
-                        <th>Status</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="item, iterStat : ${items}">
-                        <td th:text="${iterStat.index + 1}">1</td>
-                        <td th:text="${item.name}">Nome do item</td>
-                        <td th:text="${item.formattedDate}">2024-10-28</td>
-                        <td th:text="${item.status}">Disponível</td>
-                        <td>
-                            <form action="/api/items/remove/${item.id}" method="post" style="display:inline;">
-                                <button type="submit">Remover</button>
-                            </form>
-                            <form action="/api/items/markAsSold/${item.id}" method="post" style="display:inline;">
-                                <button type="submit">Comprar</button>
-                            </form>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <table class="items-table" id="itemsTable"> <!-- Adicione o ID para referência no JavaScript -->
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome do Item</th>
+                    <th>Data</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Os itens serão inseridos aqui pelo JavaScript -->
+            </tbody>
+        </table>
 
-            <a href="/shop" class="btn">Voltar para Loja</a>
-        </div>
-    </body>
+        <p id="error-msg" style="color: red;"></p> <!-- Para exibir mensagens de erro -->
+
+        <a href="/shop.html" class="btn">Voltar para Loja</a>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            // Carregar os itens do carrinho quando a página for carregada
+            loadCartItems();
+        });
+
+        function loadCartItems() {
+            $.ajax({
+                url: "/api/items/all", // Endpoint para obter todos os itens
+                method: "GET",
+                success: function (items) {
+                    // Preencher a tabela com os itens recebidos
+                    const tableBody = $('#itemsTable tbody');
+                    tableBody.empty(); // Limpar a tabela antes de adicionar os itens
+
+                    items.forEach((item, index) => {
+                        const row = `
+                            <tr>
+                                <td>${index + 1}</td>
+                                <td>${item.name}</td>
+                                <td>${item.formattedDate}</td>
+                                <td>${item.status}</td>
+                                <td>
+                                    <button onclick="removeItem(${item.id})">Remover</button>
+                                    <button onclick="markAsSold(${item.id})">Comprar</button>
+                                </td>
+                            </tr>
+                        `;
+                        tableBody.append(row); // Adicionar a linha à tabela
+                    });
+                },
+                error: function (xhr) {
+                    $('#error-msg').text("Erro ao carregar itens: " + xhr.responseText);
+                }
+            });
+        }
+
+        function removeItem(id) {
+            $.ajax({
+                url: `/api/items/remove/${id}`, // Endpoint para remover o item
+                method: "DELETE",
+                success: function () {
+                    loadCartItems(); // Recarregar os itens após a remoção
+                },
+                error: function (xhr) {
+                    $('#error-msg').text("Erro ao remover item: " + xhr.responseText);
+                }
+            });
+        }
+
+        function markAsSold(id) {
+            $.ajax({
+                url: `/api/items/markAsSold/${id}`, // Endpoint para marcar como vendido
+                method: "PUT",
+                success: function () {
+                    loadCartItems(); // Recarregar os itens após a atualização
+                },
+                error: function (xhr) {
+                    $('#error-msg').text("Erro ao marcar item como vendido: " + xhr.responseText);
+                }
+            });
+        }
+    </script>
+</body>
 </html>
