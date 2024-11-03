@@ -7,36 +7,37 @@ $(document).ready(function () {
             return; // Se a validação falhar, não prosseguir
         }
 
-        const username = $('#username').val().trim();
+        const email = $('#username').val().trim(); // Altere 'username' para 'email' se necessário
         const password = $('#password').val().trim();
 
         // Envio dos dados para o backend usando AJAX
         $.ajax({
-            url: "/api/login", // O endpoint para autenticação (ajuste conforme necessário)
+            url: "/api/login", // Verifique se o endpoint está correto
             method: "POST",
             contentType: "application/json",
             data: JSON.stringify({
-                username: username,
+                email: email, // Use 'email' aqui
                 password: password
             }),
             success: function (response) {
-                // Redirecionar para a página da loja ou onde necessário
-                window.location.href = "/shop"; 
+                // Redirecionar para a página principal ou de destino
+                window.location.href = `${window.location.origin}/shop.html`;
             },
             error: function (xhr) {
-                $('#error-msg').text("Erro ao fazer login: " + xhr.responseText);
+                $('#error-msg').text("Erro ao fazer login: " + (xhr.responseText || "Verifique suas credenciais."));
             }
         });
     });
 });
 
-function validateForm() { 
-    const username = document.getElementById("username").value.trim();
+// Validação do formulário de login
+function validateForm() {
+    const email = document.getElementById("username").value.trim(); // Altere 'username' para 'email' se necessário
     const password = document.getElementById("password").value.trim();
     const errorMsg = document.getElementById("error-msg");
 
-    if (username === "" || password === "") {
-        errorMsg.textContent = "Nome e senha são obrigatórios!";
+    if (email === "" || password === "") {
+        errorMsg.textContent = "Email e senha são obrigatórios!"; // Atualizado para 'Email'
         return false;
     }
 
