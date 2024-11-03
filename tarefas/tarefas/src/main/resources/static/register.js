@@ -25,7 +25,7 @@ $(document).ready(function () {
             }),
             success: function (response) {
                 alert("Registro realizado com sucesso!");
-                window.location.href = "/login"; // Redirecionar para a página de login após o registro
+                window.location.href = "/login.html"; // Agora redireciona corretamente para /login.html
             },
             error: function (xhr) {
                 $('#error-msg').text("Erro ao registrar: " + xhr.responseText);
