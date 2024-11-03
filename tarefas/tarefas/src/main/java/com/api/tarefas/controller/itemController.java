@@ -23,14 +23,14 @@ public class ItemController {
     }
 
     // Endpoint para remover um item pelo ID
-    @PostMapping("/remove/{id}")
+    @DeleteMapping("/remove/{id}") // Usando DELETE para remoção, que é a prática recomendada
     public ResponseEntity<Void> removeItem(@PathVariable Long id) {
         itemService.removeItem(id);
         return ResponseEntity.noContent().build();
     }
 
     // Endpoint para marcar um item como vendido
-    @PutMapping("/markAsSold/{id}")
+    @PutMapping("/markAsSold/{id}") // Mantenha como PUT, já que está atualizando o status do item
     public ResponseEntity<Item> markAsSold(@PathVariable Long id) {
         return itemService.markItemAsSold(id)
                 .map(ResponseEntity::ok)
